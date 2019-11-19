@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/book-service/book-service.iml" filepath="$PROJECT_DIR$/book-service/book-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/book-system-project.iml" filepath="$PROJECT_DIR$/.idea/book-system-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/cloud-config-service/cloud-config-service.iml" filepath="$PROJECT_DIR$/cloud-config-service/cloud-config-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eureka-service-registry/eureka-service-registry.iml" filepath="$PROJECT_DIR$/eureka-service-registry/eureka-service-registry.iml" />
-      <module fileurl="file://$PROJECT_DIR$/note-service/note-service.iml" filepath="$PROJECT_DIR$/note-service/note-service.iml" />
     </modules>
   </component>
 </project>
