@@ -1,6 +1,6 @@
 package com.company.bookservice.viewModel;
 
-import java.time.LocalDate;
+import com.company.bookservice.dto.Note;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,14 +10,13 @@ public class BookVM {
     private int bookId;
     private String title;
     private String author;
-    //private List<>  = new ArrayList<>();
+    private List<Note> notes;
 
-
-    public int getId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public void setId(int id) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
@@ -37,27 +36,37 @@ public class BookVM {
         this.author = author;
     }
 
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookVM bookVM = (BookVM) o;
-        return getId() == bookVM.getId() &&
+        return getBookId() == bookVM.getBookId() &&
                 Objects.equals(getTitle(), bookVM.getTitle()) &&
-                Objects.equals(getAuthor(), bookVM.getAuthor());
+                Objects.equals(getAuthor(), bookVM.getAuthor()) &&
+                Objects.equals(getNotes(), bookVM.getNotes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getAuthor());
+        return Objects.hash(getBookId(), getTitle(), getAuthor(), getNotes());
     }
 
     @Override
     public String toString() {
         return "BookVM{" +
-                "id=" + bookId +
+                "bookId=" + bookId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
+                ", notes=" + notes +
                 '}';
     }
 }
