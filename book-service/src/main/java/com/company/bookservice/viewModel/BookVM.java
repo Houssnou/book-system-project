@@ -5,6 +5,7 @@ import com.company.bookservice.dto.Note;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,10 +15,10 @@ public class BookVM {
     @NotEmpty(message = "Book ID must have a value.")
     private int bookId;
     @NotEmpty(message = "Title must have a value.")
-    @Max(50)
+    @Size(max = 50)
     private String title;
     @NotEmpty(message = "Author must have a value.")
-    @Max(50)
+    @Size(max = 50)
     private String author;
     @NotNull
     private List<Note> notes;
