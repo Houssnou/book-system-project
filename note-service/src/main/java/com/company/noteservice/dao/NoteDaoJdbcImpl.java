@@ -2,8 +2,10 @@ package com.company.noteservice.dao;
 
 import com.company.noteservice.dto.Note;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,10 +15,13 @@ import java.util.List;
 public class NoteDaoJdbcImpl implements NoteDao {
 
     private static final String INSERT_NOTE_SQL =
-            "insert into note (note_id, book_id, note) values (?, ?, ?)";
+            "insert into note (book_id, note) values (?, ?)";
 
     private static final String SELECT_NOTE_SQL =
             "select * from note where note_id = ?";
+
+    private static final String SELECT_NOTE_BY_BOOK_ID_SQL =
+            "select * from note where book_id = ?";
 
     private static final String SELECT_ALL_NOTES_SQL =
             "select * from note";
@@ -37,6 +42,7 @@ public class NoteDaoJdbcImpl implements NoteDao {
 
 
     @Override
+    @Transactional
     public Note addNote(Note note) {
         jdbcTemplate.update(
                 INSERT_NOTE_SQL,
@@ -52,33 +58,50 @@ public class NoteDaoJdbcImpl implements NoteDao {
     public Note getNote(int id) {
         try {
             return jdbcTemplate.queryForObject(SELECT_NOTE_SQL, this::mapRowToNote, id);
+        } catch (EmptyResultDataAccessException e) {
+            //if theres no match return null
+            return null;
         }
     }
 
     @Override
+    public List<Note> getByBookId(int id) {
+
+        try {
+            return jdbcTemplate.query(SELECT_NOTE_BY_BOOK_ID_SQL, this::mapRowToNote, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
+    }
+
+
+    @Override
     public List<Note> getAllNotes() {
-        return null;
+        return jdbcTemplate.query(SELECT_ALL_NOTES_SQL, this::mapRowToNote);
     }
 
     @Override
     public void updateNote(Note note) {
-
+        jdbcTemplate.update(UPDATE_NOTE_SQL,
+                note.getBookId(),
+                note.getNote(),
+                note.getNoteId());
     }
 
     @Override
     public void deleteNote(int id) {
-
+        jdbcTemplate.update(DELETE_NOTE, id);
     }
+
     private Note mapRowToNote(ResultSet rs, int rowNum) throws SQLException {
         Note note = new Note();
         note.setNoteId(rs.getInt("note_id"));
-        note.setB(rs.getString("model"));
-        note.setManufacturer(rs.getString("manufacturer"));
-        note.setMemoryAmount(rs.getString("memory_amount"));
-        note.setProcessor(rs.getString("processor"));
-        note.setPrice(rs.getBigDecimal("price"));
-        note.setQuantity(rs.getInt("quantity"));
+        note.setBookId(rs.getInt("book_id"));
+        note.setNote(rs.getString("note"));
+
 
         return note;
+    }
 
 }

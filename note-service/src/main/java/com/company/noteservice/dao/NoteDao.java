@@ -15,4 +15,6 @@ public interface NoteDao {
     void updateNote(Note note);
 
     void deleteNote(int id);
+
+    List<Note> getByBookId(int id);
 }

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Note {
     private int noteId;
-    private String bookId;
+    private int bookId;
     private String note;
 
     public int getNoteId() {
@@ -15,11 +15,11 @@ public class Note {
         this.noteId = noteId;
     }
 
-    public String getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(String bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 

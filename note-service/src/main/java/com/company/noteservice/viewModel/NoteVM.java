@@ -1,7 +1,6 @@
 package com.company.noteservice.viewModel;
 
-import com.company.noteservice.dto.Book;
-import com.company.noteservice.dto.Note;
+
 
 
 import javax.validation.constraints.NotEmpty;
@@ -10,13 +9,14 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class NoteVM {
-    @NotEmpty(message = "you must provide an id")
+
     private int noteId;
-    @NotEmpty(message = "you must provide a Book")
-    private Book book;
+    @NotNull(message = "you must provide a Book")
+    private Integer bookId;
     @NotEmpty(message = "you must provide a note")
     @Size(max = 255)
     private String note;
+
 
     public int getNoteId() {
         return noteId;
@@ -26,12 +26,12 @@ public class NoteVM {
         this.noteId = noteId;
     }
 
-    public Book getBook() {
-        return book;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public String getNote() {
@@ -48,20 +48,20 @@ public class NoteVM {
         if (o == null || getClass() != o.getClass()) return false;
         NoteVM noteVM = (NoteVM) o;
         return noteId == noteVM.noteId &&
-                Objects.equals(book, noteVM.book) &&
+                Objects.equals(bookId, noteVM.bookId) &&
                 Objects.equals(note, noteVM.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(noteId, book, note);
+        return Objects.hash(noteId, bookId, note);
     }
 
     @Override
     public String toString() {
         return "NoteVM{" +
                 "noteId=" + noteId +
-                ", book=" + book +
+                ", bookId=" + bookId +
                 ", note='" + note + '\'' +
                 '}';
     }
